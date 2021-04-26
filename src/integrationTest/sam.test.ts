@@ -27,7 +27,7 @@ const projectFolder = getTestWorkspaceFolder()
 
 /* Test constants go here */
 const CODELENS_TIMEOUT: number = 60000
-const CODELENS_RETRY_INTERVAL: number = 200
+const CODELENS_RETRY_INTERVAL: number = 5000
 const DEBUG_TIMEOUT: number = 90000
 const NO_DEBUG_SESSION_TIMEOUT: number = 5000
 const NO_DEBUG_SESSION_INTERVAL: number = 100
