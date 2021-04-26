@@ -233,7 +233,12 @@ async function getAddConfigCodeLens(documentUri: vscode.Uri): Promise<vscode.Cod
     return waitUntil(
         async () => {
             try {
-                let codeLenses = await getCodeLenses(documentUri)
+                // Sometimes 'getCodeLenses' will never return, so we need to race it
+                let codeLenses = await Promise.race<Promise<vscode.CodeLens[] | undefined>>([
+                    getCodeLenses(documentUri),
+                    new Promise(r => setTimeout(() => r(undefined), CODELENS_RETRY_INTERVAL)),
+                ])
+
                 if (!codeLenses || codeLenses.length === 0) {
                     return undefined
                 }
